@@ -1,0 +1,7 @@
+"name","type","length","leftDigits","rightDigits"
+"BusinessEntityID","INTEGER","4","4","0"
+"Name","STRING","41","0","0"
+"SalesPersonID","INTEGER","3","3","0"
+"Demographics","STRING","430","0","0"
+"rowguid","STRING","36","0","0"
+"ModifiedDate","STRING","19","0","0"

@@ -1,0 +1,5 @@
+"name","type","length","leftDigits","rightDigits"
+"ProductModelID","INTEGER","3","3","0"
+"ProductDescriptionID","INTEGER","4","4","0"
+"CultureID","STRING","6","0","0"
+"ModifiedDate","STRING","19","0","0"

@@ -1,0 +1,8 @@
+"name","type","length","leftDigits","rightDigits"
+"CustomerID","INTEGER","5","5","0"
+"PersonID","STRING","5","0","0"
+"StoreID","STRING","4","4","0"
+"TerritoryID","INTEGER","2","2","0"
+"AccountNumber","STRING","10","0","0"
+"rowguid","STRING","36","0","0"
+"ModifiedDate","STRING","19","0","0"

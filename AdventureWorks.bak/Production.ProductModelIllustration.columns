@@ -1,0 +1,4 @@
+"name","type","length","leftDigits","rightDigits"
+"ProductModelID","INTEGER","2","2","0"
+"IllustrationID","INTEGER","1","1","0"
+"ModifiedDate","STRING","19","0","0"

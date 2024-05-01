@@ -1,0 +1,5 @@
+"name","type","length","leftDigits","rightDigits"
+"SystemInformationID","INTEGER","1","1","0"
+"Database Version","STRING","13","0","0"
+"VersionDate","STRING","19","0","0"
+"ModifiedDate","STRING","19","0","0"

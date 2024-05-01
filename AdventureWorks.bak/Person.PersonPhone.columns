@@ -1,0 +1,5 @@
+"name","type","length","leftDigits","rightDigits"
+"BusinessEntityID","INTEGER","5","5","0"
+"PhoneNumber","STRING","19","0","0"
+"PhoneNumberTypeID","INTEGER","1","1","0"
+"ModifiedDate","STRING","19","0","0"

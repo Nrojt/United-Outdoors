@@ -1,0 +1,6 @@
+"name","type","length","leftDigits","rightDigits"
+"BusinessEntityID","INTEGER","3","3","0"
+"RateChangeDate","STRING","19","0","0"
+"Rate","DECIMAL","8","3","4"
+"PayFrequency","INTEGER","1","1","0"
+"ModifiedDate","STRING","19","0","0"

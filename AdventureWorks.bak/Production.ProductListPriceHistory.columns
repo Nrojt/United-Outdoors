@@ -1,0 +1,6 @@
+"name","type","length","leftDigits","rightDigits"
+"ProductID","INTEGER","3","3","0"
+"StartDate","STRING","19","0","0"
+"EndDate","STRING","19","0","0"
+"ListPrice","DECIMAL","9","4","4"
+"ModifiedDate","STRING","19","0","0"

@@ -1,0 +1,5 @@
+"name","type","length","leftDigits","rightDigits"
+"DepartmentID","INTEGER","2","2","0"
+"Name","STRING","26","0","0"
+"GroupName","STRING","36","0","0"
+"ModifiedDate","STRING","19","0","0"

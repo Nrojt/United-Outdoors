@@ -1,0 +1,8 @@
+"name","type","length","leftDigits","rightDigits"
+"CurrencyRateID","INTEGER","5","5","0"
+"CurrencyRateDate","STRING","19","0","0"
+"FromCurrencyCode","STRING","3","0","0"
+"ToCurrencyCode","STRING","3","0","0"
+"AverageRate","DECIMAL","9","4","4"
+"EndOfDayRate","DECIMAL","9","4","4"
+"ModifiedDate","STRING","19","0","0"

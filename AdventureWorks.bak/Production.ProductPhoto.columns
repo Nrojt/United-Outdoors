@@ -1,0 +1,7 @@
+"name","type","length","leftDigits","rightDigits"
+"ProductPhotoID","INTEGER","3","3","0"
+"ThumbNailPhoto","STRING","35246","0","0"
+"ThumbnailPhotoFileName","STRING","35","0","0"
+"LargePhoto","STRING","51850","0","0"
+"LargePhotoFileName","STRING","35","0","0"
+"ModifiedDate","STRING","19","0","0"
