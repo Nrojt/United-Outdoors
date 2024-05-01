@@ -1,6 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ShiftID","INTEGER","1","1","0"
-"Name","STRING","7","0","0"
-"StartTime","STRING","8","0","0"
-"EndTime","STRING","8","0","0"
-"ModifiedDate","STRING","19","0","0"

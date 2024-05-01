@@ -1,7 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ShoppingCartItemID","INTEGER","1","1","0"
-"ShoppingCartID","INTEGER","5","5","0"
-"Quantity","INTEGER","1","1","0"
-"ProductID","INTEGER","3","3","0"
-"DateCreated","STRING","19","0","0"
-"ModifiedDate","STRING","19","0","0"

@@ -1,8 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ProductID","INTEGER","3","3","0"
-"LocationID","INTEGER","2","2","0"
-"Shelf","STRING","3","0","0"
-"Bin","INTEGER","2","2","0"
-"Quantity","INTEGER","3","3","0"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"

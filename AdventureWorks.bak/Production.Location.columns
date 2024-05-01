@@ -1,6 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"LocationID","INTEGER","2","2","0"
-"Name","STRING","22","0","0"
-"CostRate","DECIMAL","7","2","4"
-"Availability","DECIMAL","6","3","2"
-"ModifiedDate","STRING","19","0","0"

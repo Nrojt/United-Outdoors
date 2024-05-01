@@ -1,7 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ShipMethodID","INTEGER","1","1","0"
-"Name","STRING","18","0","0"
-"ShipBase","DECIMAL","7","2","4"
-"ShipRate","DECIMAL","6","1","4"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"

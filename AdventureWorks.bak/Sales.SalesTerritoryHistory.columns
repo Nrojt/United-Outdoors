@@ -1,7 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"BusinessEntityID","INTEGER","3","3","0"
-"TerritoryID","INTEGER","2","2","0"
-"StartDate","STRING","19","0","0"
-"EndDate","STRING","19","0","0"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"

@@ -1,5 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ProductID","INTEGER","3","3","0"
-"ProductPhotoID","INTEGER","3","3","0"
-"Primary","INTEGER","1","1","0"
-"ModifiedDate","STRING","19","0","0"

@@ -1,7 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"CreditCardID","INTEGER","5","5","0"
-"CardType","STRING","13","0","0"
-"CardNumber","INTEGER","14","14","0"
-"ExpMonth","INTEGER","2","2","0"
-"ExpYear","INTEGER","4","4","0"
-"ModifiedDate","STRING","19","0","0"

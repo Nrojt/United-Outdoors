@@ -1,7 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ProductModelID","INTEGER","3","3","0"
-"Name","STRING","27","0","0"
-"CatalogDescription","STRING","2428","0","0"
-"Instructions","STRING","5519","0","0"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"

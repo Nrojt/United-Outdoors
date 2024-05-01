@@ -1,5 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"JobCandidateID","INTEGER","2","2","0"
-"BusinessEntityID","STRING","3","0","0"
-"Resume","STRING","6547","0","0"
-"ModifiedDate","STRING","19","0","0"

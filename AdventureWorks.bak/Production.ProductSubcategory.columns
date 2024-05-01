@@ -1,6 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"ProductSubcategoryID","INTEGER","2","2","0"
-"ProductCategoryID","INTEGER","1","1","0"
-"Name","STRING","17","0","0"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"

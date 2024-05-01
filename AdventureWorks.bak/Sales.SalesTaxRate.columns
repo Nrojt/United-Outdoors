@@ -1,8 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"SalesTaxRateID","INTEGER","2","2","0"
-"StateProvinceID","INTEGER","2","2","0"
-"TaxType","INTEGER","1","1","0"
-"TaxRate","DECIMAL","7","2","4"
-"Name","STRING","37","0","0"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"

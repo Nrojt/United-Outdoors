@@ -1,4 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"BusinessEntityID","INTEGER","5","5","0"
-"CreditCardID","INTEGER","5","5","0"
-"ModifiedDate","STRING","19","0","0"

@@ -1,6 +1,0 @@
-"name","type","length","leftDigits","rightDigits"
-"BusinessEntityID","INTEGER","3","3","0"
-"QuotaDate","STRING","19","0","0"
-"SalesQuota","DECIMAL","12","7","4"
-"rowguid","STRING","36","0","0"
-"ModifiedDate","STRING","19","0","0"
