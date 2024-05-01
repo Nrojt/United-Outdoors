@@ -1,0 +1,1 @@
+poetry # for the other dependencies, use poetry
