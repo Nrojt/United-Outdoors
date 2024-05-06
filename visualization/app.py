@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import os
 
 app = Flask(__name__)
@@ -7,6 +7,14 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return render_template('index.html')
+
+
+# route that can be used to download any file from the files directory
+@app.route('/download/<path:filename>', methods=['GET'])
+def download(filename):
+    directory = os.path.join(os.getcwd(), 'files')
+    return send_from_directory(directory=directory, path=filename, as_attachment=True)
+
 
 @app.route('/images')
 def images():
