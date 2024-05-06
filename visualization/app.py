@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def main_page():
     return render_template('index.html')
 
 
@@ -18,10 +18,14 @@ def download(filename):
 
 @app.route('/images')
 def images():
+    # This will technically list all files in the images directory, but since only we have access to the server,
+    # it's fine
     image_names = os.listdir('static/images')
     print(image_names)
+    # send the list of image names to the template
     return render_template("images.html", image_names=image_names)
 
 
 if __name__ == '__main__':
+    # custom port
     app.run(port=5001, debug=True)
