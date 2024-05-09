@@ -8,25 +8,56 @@ GO
 
 USE UnitedOutdoors;
 
-CREATE TABLE NorthWindCategories (
-    "CategorySK" "int" PRIMARY KEY IDENTITY(1,1) NOT NULL ,
-    "CategoryID" "int" NOT NULL ,
-	"CategoryName" nvarchar (15) NOT NULL ,
-	"Description" "ntext" NULL ,
-	"Picture" "image" NULL
+CREATE TABLE Regions(
+    RegionSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    RegionID INT,
+    RegionName VARCHAR(10),
+    StateProvinceID INT,
+    StateProvinceCode VARCHAR(10),
+    CountryRegionCode CHAR(2),
+    IsOnlyStateProvinceFlag BIT,
+    Name VARCHAR(50),
+    TerritoryID INT,
+    rowguid UNIQUEIDENTIFIER NULL,
+    ModifiedDate DATE
 );
 
-CREATE TABLE NorthWindCustomers (
-    "CustomerSK" "int" PRIMARY KEY IDENTITY(1,1) NOT NULL ,
-    "CustomerID" nchar (5) NOT NULL ,
-	"CompanyName" nvarchar (40) NOT NULL ,
-	"ContactName" nvarchar (30) NULL ,
-	"ContactTitle" nvarchar (30) NULL ,
-	"Address" nvarchar (60) NULL ,
-	"City" nvarchar (15) NULL ,
-	"Region" nvarchar (15) NULL ,
-	"PostalCode" nvarchar (10) NULL ,
-	"Country" nvarchar (15) NULL ,
-	"Phone" nvarchar (24) NULL ,
-	"Fax" nvarchar (24) NULL
+CREATE TABLE Customers(
+    CustomerSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL ,
+    CustomerID NVARCHAR(10) NOT NULL,
+    CompanyName NVARCHAR(40),
+    ContactName NVARCHAR(60),
+    ContactTitle NVARCHAR(30),
+    Address NVARCHAR(60),
+    City NVARCHAR(30),
+    Region VARCHAR(15),
+    Zip  VARCHAR(10),
+    Country VARCHAR(15),
+    Phone VARCHAR(24),
+    Fax VARCHAR(24),
+    CustomerTypeID VARCHAR,
+    CustomerDesc VARCHAR(100),
+    State CHAR(2),
+    PersonID INT,
+    StoreID INT,
+    TerritoryID INT,
+    AccountNumber CHAR(10),
+    PersonType VARCHAR(2),
+    NameStyle BIT,
+    Title VARCHAR(10),
+    Suffix VARCHAR(10),
+    EmailPromotion INT,
+    AdditionalContactInfo XML,
+    Demographics XML,
+    AddressID INT,
+    AddressTypeID INT,
+    AddressLine2 VARCHAR(60),
+    StateProvinceID INT,
+    SpatialLocation GEOGRAPHY,
+    AddressType VARCHAR(50),
+    StateProvinceCode VARCHAR(10),
+    CountryRegionCode CHAR(2),
+    IsOnlyStateProvinceFlag BIT,
+    StateProvince VARCHAR(50),
+    CountryRegion VARCHAR(50)
 );
