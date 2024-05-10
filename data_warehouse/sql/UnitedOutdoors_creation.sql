@@ -1,8 +1,14 @@
-IF NOT EXISTS (
+IF EXISTS (
     SELECT name
     FROM master.dbo.sysdatabases
     WHERE name = N'UnitedOutdoors'
 )
+BEGIN
+    ALTER DATABASE UnitedOutdoors SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+    DROP DATABASE UnitedOutdoors
+END
+GO
+
 CREATE DATABASE UnitedOutdoors
 GO
 
@@ -10,7 +16,7 @@ USE UnitedOutdoors;
 
 CREATE TABLE Products (
     ProductSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
-    ProductID INT NOT NULL,
+    ProductID INT,
     ProductName NVARCHAR(50),
     SupplierID INT,
     CategoryID INT,
@@ -20,7 +26,7 @@ CREATE TABLE Products (
     UnitsOnOrder INT,
     ReorderLevel INT,
     Discontinued BIT,
-    Description NVARCHAR(100),
+    Description NVARCHAR(MAX),
     ProdSize NVARCHAR(50),
     Color VARCHAR(15),
     Quantity INT,
@@ -51,18 +57,19 @@ CREATE TABLE Products (
     ModifiedDate DATE,
     ProductCategoryID INT,
     ProductDescriptionID INT,
-    DocumentNode HIERARCHYID,
     CatalogDescription XML,
     Instructions XML,
     IllustrationID INT,
     CultureID VARCHAR(10),
     ProductPhotoID INT,
+    ThumbNailPhotoHexString NVARCHAR(MAX),
     ThumbNailPhoto VARBINARY(MAX),
     ThumbnailPhotoFileName NVARCHAR(50),
+    LargePhotoHexString NVARCHAR(MAX),
     LargePhoto VARBINARY(MAX),
     LargePhotoFileName NVARCHAR(50),
     "Primary" BIT
-)
+);
 
 CREATE TABLE Regions(
     RegionSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -117,3 +124,24 @@ CREATE TABLE Customers(
     StateProvince VARCHAR(50),
     CountryRegion VARCHAR(50)
 );
+GO
+
+CREATE TRIGGER ConvertHexToVarbinary
+ON Products
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE Products
+    SET ThumbNailPhoto = CASE
+                            WHEN inserted.ThumbNailPhotoHexString IS NOT NULL
+                            THEN CONVERT(VARBINARY(MAX), inserted.ThumbNailPhotoHexString, 1)
+                            ELSE Products.ThumbNailPhoto
+                         END,
+        LargePhoto = CASE
+                        WHEN inserted.LargePhotoHexString IS NOT NULL
+                        THEN CONVERT(VARBINARY(MAX), inserted.LargePhotoHexString, 1)
+                        ELSE Products.LargePhoto
+                     END
+    FROM inserted
+    WHERE inserted.ProductSK = Products.ProductSK
+END;
