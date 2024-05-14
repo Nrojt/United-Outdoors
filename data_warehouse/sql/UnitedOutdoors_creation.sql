@@ -14,7 +14,7 @@ GO
 
 USE UnitedOutdoors;
 
-CREATE TABLE Products (
+CREATE TABLE Product (
     ProductSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     ProductID INT,
     ProductName NVARCHAR(50),
@@ -71,7 +71,7 @@ CREATE TABLE Products (
     "Primary" BIT
 );
 
-CREATE TABLE Regions(
+CREATE TABLE Region(
     RegionSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     RegionID INT,
     RegionName VARCHAR(10),
@@ -85,7 +85,7 @@ CREATE TABLE Regions(
     ModifiedDate DATE
 );
 
-CREATE TABLE Customers(
+CREATE TABLE Customer(
     CustomerSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL ,
     CustomerID NVARCHAR(10) NOT NULL,
     CompanyName NVARCHAR(40),
@@ -126,7 +126,7 @@ CREATE TABLE Customers(
 );
 GO
 
-CREATE TABLE Departments(
+CREATE TABLE Department(
     DEPARTMENT_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     DEPARTMENT_DEPARTMENT_dept_id INT,
     DEPARTMENT_DEPARTMENT_dept_name VARCHAR(100),
@@ -139,8 +139,8 @@ GO
 
 CREATE TABLE Person(
     PERSON_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
-    PERSON_PERSON_BusinessEntityID INT,
-    PERSON_PERSON_PersonType VARCHAR(100),
+    PERSON_PERSON_BusinessEntityID INT NOT NULL,
+    PERSON_PERSON_PersonType CHAR(2),
     PERSON_PERSON_NameStyle BIT,
     PERSON_PERSON_Title VARCHAR(100),
     PERSON_PERSON_FirstName VARCHAR(100),
@@ -161,13 +161,13 @@ CREATE TABLE Person(
 );
 GO
 
-CREATE TABLE BusinessEntityContact(
-    BUSINESSENTITYCONTACT_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
-    BUSINESSENTITYCONTACT_BUSINESSENTITYCONTACT_BusinessEntityID INT,
-    BUSINESSENTITYCONTACT_BUSINESSENTITYCONTACT_PersonID INT,
-    BUSINESSENTITYCONTACT_CONTACTTYPE_ContactTypeID INT,
-    BUSINESSENTITYCONTACT_CONTACTTYPE_Name VARCHAR(100),
-    BUSINESSENTITYCONTACT_datetime_added DATETIME DEFAULT GETUTCDATE()
+CREATE TABLE BusinessEntity(
+    BUSINESSENTITY_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    BUSINESSENTITY_BUSINESSENTITY_BusinessEntityID INT,
+    BUSINESSENTITY_BUSINESSENTITYCONTACT_PersonID INT,
+    BUSINESSENTITY_CONTACTTYPE_ContactTypeID INT,
+    BUSINESSENTITY_CONTACTTYPE_Name VARCHAR(100),
+    BUSINESSENTITY_datetime_added DATETIME DEFAULT GETUTCDATE()
 );
 GO
 
@@ -194,21 +194,21 @@ CREATE TABLE BusinessEntityAddress(
 GO
 
 CREATE TRIGGER ConvertHexToVarbinary
-ON Products
+ON Product
 AFTER INSERT, UPDATE
 AS
 BEGIN
-    UPDATE Products
+    UPDATE Product
     SET ThumbNailPhoto = CASE
                             WHEN inserted.ThumbNailPhotoHexString IS NOT NULL
                             THEN CONVERT(VARBINARY(MAX), inserted.ThumbNailPhotoHexString, 1)
-                            ELSE Products.ThumbNailPhoto
+                            ELSE Product.ThumbNailPhoto
                          END,
         LargePhoto = CASE
                         WHEN inserted.LargePhotoHexString IS NOT NULL
                         THEN CONVERT(VARBINARY(MAX), inserted.LargePhotoHexString, 1)
-                        ELSE Products.LargePhoto
+                        ELSE Product.LargePhoto
                      END
     FROM inserted
-    WHERE inserted.ProductSK = Products.ProductSK
+    WHERE inserted.ProductSK = Product.ProductSK
 END;
