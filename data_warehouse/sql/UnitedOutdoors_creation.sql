@@ -14,7 +14,7 @@ GO
 
 USE UnitedOutdoors;
 
-CREATE TABLE Products (
+CREATE TABLE Product (
     ProductSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     ProductID INT,
     ProductName NVARCHAR(50),
@@ -71,7 +71,7 @@ CREATE TABLE Products (
     "Primary" BIT
 );
 
-CREATE TABLE Regions(
+CREATE TABLE Region(
     RegionSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     RegionID INT,
     RegionName VARCHAR(10),
@@ -85,7 +85,7 @@ CREATE TABLE Regions(
     ModifiedDate DATE
 );
 
-CREATE TABLE Customers(
+CREATE TABLE Customer(
     CustomerSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL ,
     CustomerID NVARCHAR(10) NOT NULL,
     CompanyName NVARCHAR(40),
@@ -126,22 +126,83 @@ CREATE TABLE Customers(
 );
 GO
 
+CREATE TABLE Department(
+    DEPARTMENT_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    DEPARTMENT_DEPARTMENT_dept_id INT,
+    DEPARTMENT_DEPARTMENT_dept_name VARCHAR(100),
+    DEPARTMENT_DEPARTMENT_group_name VARCHAR(100),
+    DEPARTMENT_DEPARTMENT_dept_head_id INT,
+    DEPARTMENT_datetime_added DATETIME DEFAULT GETUTCDATE(),
+    DEPARTMENT_source_database VARCHAR(100)
+);
+GO
+
+CREATE TABLE Person(
+    PERSON_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    PERSON_PERSON_BusinessEntityID INT NOT NULL,
+    PERSON_PERSON_PersonType CHAR(2),
+    PERSON_PERSON_NameStyle BIT,
+    PERSON_PERSON_Title VARCHAR(100),
+    PERSON_PERSON_FirstName VARCHAR(100),
+    PERSON_PERSON_MiddleName VARCHAR(100),
+    PERSON_PERSON_LastName VARCHAR(100),
+    PERSON_PERSON_Suffix VARCHAR(100),
+    PERSON_PERSON_EmailPromotion INT,
+    PERSON_PERSON_AdditionalContactInfo XML,
+    PERSON_PERSON_Demographics XML,
+    PERSON_PERSONPHONE_PhoneNumber VARCHAR(100),
+    PERSON_PHONENUMBERTYPE_PhoneNumberTypeID INT,
+    PERSON_PHONENUMBERTYPE_Name VARCHAR(100),
+    PERSON_EMAILADDRESS_EmailAddressID INT,
+    PERSON_EMAILADDRESS_EmailAddress VARCHAR(100),
+    PERSON_PASSWORD_PasswordHash VARBINARY(8000),
+    PERSON_PASSWORD_PasswordSalt VARBINARY(8000),
+    PERSON_datetime_added DATETIME DEFAULT GETUTCDATE()
+);
+GO
+
+CREATE TABLE BusinessEntity(
+    BUSINESSENTITY_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    BUSINESSENTITY_BUSINESSENTITY_BusinessEntityID INT,
+    BUSINESSENTITY_BUSINESSENTITYCONTACT_PersonID INT,
+    BUSINESSENTITY_CONTACTTYPE_ContactTypeID INT,
+    BUSINESSENTITY_CONTACTTYPE_Name VARCHAR(100),
+    BUSINESSENTITY_datetime_added DATETIME DEFAULT GETUTCDATE()
+);
+GO
+
+CREATE TABLE BusinessEntityAddress(
+    BUSINESSENTITYADDRESS_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    BUSINESSENTITYADDRESS_BUSINESSENTITYADDRESS_BusinessEntityID INT,
+    BUSINESSENTITYADDRESS_ADDRESSTYPE_AddressTypeID INT,
+    BUSINESSENTITYADDRESS_ADDRESSTYPE_Name VARCHAR(100),
+    BUSINESSENTITYADDRESS_ADDRESS_AddressID INT,
+    BUSINESSENTITYADDRESS_ADDRESS_AddressLine1 VARCHAR(100),
+    BUSINESSENTITYADDRESS_ADDRESS_AddressLine2 VARCHAR(100),
+    BUSINESSENTITYADDRESS_ADDRESS_City VARCHAR(100),
+    BUSINESSENTITYADDRESS_ADDRESS_POSTALCODE VARCHAR(100),
+    BUSINESSENTITYADDRESS_ADDRESS_SpatialLocation GEOGRAPHY,
+    BUSINESSENTITYADDRESS_ADDRESS_StateProvinceID INT,
+    BUSINESSENTITYADDRESS_datetime_added DATETIME DEFAULT GETUTCDATE()
+);
+GO
+
 CREATE TRIGGER ConvertHexToVarbinary
-ON Products
+ON Product
 AFTER INSERT, UPDATE
 AS
 BEGIN
-    UPDATE Products
+    UPDATE Product
     SET ThumbNailPhoto = CASE
                             WHEN inserted.ThumbNailPhotoHexString IS NOT NULL
                             THEN CONVERT(VARBINARY(MAX), inserted.ThumbNailPhotoHexString, 1)
-                            ELSE Products.ThumbNailPhoto
+                            ELSE Product.ThumbNailPhoto
                          END,
         LargePhoto = CASE
                         WHEN inserted.LargePhotoHexString IS NOT NULL
                         THEN CONVERT(VARBINARY(MAX), inserted.LargePhotoHexString, 1)
-                        ELSE Products.LargePhoto
+                        ELSE Product.LargePhoto
                      END
     FROM inserted
-    WHERE inserted.ProductSK = Products.ProductSK
+    WHERE inserted.ProductSK = Product.ProductSK
 END;
