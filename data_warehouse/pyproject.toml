@@ -13,6 +13,7 @@ colorama = "^0.4.6"
 pandas = "^2.2.2"
 sqlalchemy = "^2.0.30"
 rpds-py = "^0.18.1"
+nbdime = "^4.0.1"
 
 
 [build-system]
