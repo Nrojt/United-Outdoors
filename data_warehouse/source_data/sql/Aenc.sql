@@ -16,7 +16,7 @@ CREATE TABLE "Bonus"
     "bonus_amount" INT NOT NULL,
 );
 
-CREATE TABLE "customer"
+CREATE TABLE "Customer"
 (
     "id" INT IDENTITY (1, 1) PRIMARY KEY NOT NULL,
     "fname" VARCHAR(50) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE "customer"
     "company_name" VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE "department"
+CREATE TABLE "Department"
 (
     "dept_id" INT IDENTITY (1, 1) PRIMARY KEY NOT NULL,
     "dept_name" VARCHAR(50) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE "Employee"
     "sex" CHAR(1) NOT NULL,
 );
 
-CREATE TABLE "product"
+CREATE TABLE "Product"
 (
     "id" INT IDENTITY (1, 1) PRIMARY KEY NOT NULL,
     "name" VARCHAR(50) NOT NULL,
@@ -73,12 +73,12 @@ CREATE TABLE "product"
     "Category" VARCHAR(50) NOT NULL,
 );
 
-CREATE TABLE "region"
+CREATE TABLE "Region"
 (
     "region" VARCHAR(50) PRIMARY KEY NOT NULL
 );
 
-CREATE TABLE "sales_order"
+CREATE TABLE "SalesOrder"
 (
     "id" INT IDENTITY (1, 1) PRIMARY KEY NOT NULL,
     "cust_id" INT NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE "sales_order"
     "sales_rep" INT NOT NULL,
 );
 
-CREATE TABLE "sales_order_item"
+CREATE TABLE "SalesOrderItem"
 (
     "sales_order_item_id" INT IDENTITY (1, 1) PRIMARY KEY NOT NULL,
     "id" INT  NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE "sales_order_item"
     "ship_date" DATE NOT NULL,
 )
 
-CREATE TABLE "state"
+CREATE TABLE "State"
 (
     "state_id" CHAR(2) PRIMARY KEY NOT NULL,
     "state_name" VARCHAR(50) NOT NULL,
