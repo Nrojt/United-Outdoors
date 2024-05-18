@@ -93,8 +93,8 @@ def create_aenc():
 
     tables = aenc_cursor.tables().fetchall()
 
-    skip_tables = ['bonus', 'state', 'sales_order_item',
-                   'region']  # need to skip bonus and sales_order_item table, since it didn't have an identity column
+    skip_tables = ['Bonus', 'State', 'SalesOrderItem',
+                   'Region']  # need to skip bonus and sales_order_item table, since it didn't have an identity column
     # in the access database. state uses a char column as the primary key, so it also needs to be skipped
 
     # copying over all the tables from the access database to the sql server database, the table and column names are
