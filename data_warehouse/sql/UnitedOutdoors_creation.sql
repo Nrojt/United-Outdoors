@@ -39,7 +39,7 @@ CREATE TABLE Time (
     TIME_Hour INT,
     TIME_Minute INT,
     TIME_HourMinute VARCHAR(10),
-)
+);
 GO
 
 CREATE TABLE Product (
