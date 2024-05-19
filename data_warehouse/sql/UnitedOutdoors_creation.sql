@@ -14,6 +14,34 @@ GO
 
 USE UnitedOutdoors;
 
+CREATE TABLE Date (
+    DATE_ID INT NOT NULL PRIMARY KEY,
+    DATE_Date DATE NOT NULL,
+    DATE_Weekday VARCHAR(10) NOT NULL,
+    DATE_WeekdayNum INT NOT NULL,
+    DATE_DayMonth INT NOT NULL,
+    DATE_DayOfYear INT NOT NULL,
+    DATE_WeekOfYear INT NOT NULL,
+    DATE_MonthNum INT NOT NULL,
+    DATE_MonthName VARCHAR(10) NOT NULL,
+    DATE_MonthNameShort CHAR(10) NOT NULL,
+    DATE_Quarter INT NOT NULL,
+    DATE_Year INT NOT NULL,
+    DATE_FirstDayOfMonth DATE NOT NULL,
+    DATE_LastDayOfMonth DATE NOT NULL,
+    DATE_YYYYMM CHAR(10) NOT NULL,
+    DATE_WeekendIndr CHAR(15) NOT NULL
+);
+GO
+
+CREATE TABLE Time (
+    TIME_ID INT NOT NULL PRIMARY KEY,
+    TIME_Hour INT,
+    TIME_Minute INT,
+    TIME_HourMinute VARCHAR(10),
+)
+GO
+
 CREATE TABLE Product (
     ProductSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     ProductID INT,
