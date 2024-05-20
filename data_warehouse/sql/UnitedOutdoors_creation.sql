@@ -86,7 +86,8 @@ CREATE TABLE Inventory (
     INVENTORY_LOCATION_ID INT,
     INVENTORY_Shelf VARCHAR(5),
     INVENTORY_Bin INT,
-    INVENTORY_PRODUCT_ReorderLevel INT
+    INVENTORY_PRODUCT_ReorderLevel INT,
+    INVENTORY_datetime_added DATETIME DEFAULT GETUTCDATE()
 );
 GO
 
@@ -102,6 +103,7 @@ CREATE TABLE Product (
     PRODUCT_PRODUCTPRODUCTPHOTO_PhotoID INT,
     PRODUCT_PMPDC_DescriptionID INT,
     PRODUCT_PMPDC_CultureID INT,
+    PRODUCT_PRODUCT_SupplierID INT,
     PRODUCT_PRODUCT_Name VARCHAR(150),
     PRODUCT_PRODUCT_Number VARCHAR(25),
     PRODUCT_PRODUCT_MakeFlag BIT,
@@ -110,9 +112,11 @@ CREATE TABLE Product (
     PRODUCT_PRODUCT_SafetyStockLevel INT,
     PRODUCT_PRODUCT_ReorderPoint INT,
     PRODUCT_PRODUCT_StandardCost DECIMAL(8,4),
+    PRODUCT_PRODUCT_QuantityPerUnit VARHCAR(50),
     PRODUCT_PRODUCT_UnitPrice MONEY,
     PRODUCT_PRODUCT_ListPrice MONEY,
-    PRODUCT_PRODUCT_Size VARCHAR(5),
+    PRODUCT_PRODUCT_UnitsOnOrder INT,
+    PRODUCT_PRODUCT_Size VARCHAR(50),
     PRODUCT_PRODUCT_SizeUnitMeasureName VARCHAR(50),
     PRODUCT_PRODUCT_WeightnitMeasureName VARCHAR(50),
     PRODUCT_Color VARCHAR(50),
@@ -144,7 +148,7 @@ CREATE TABLE Product (
     PRODUCT_PRODUCT_DiscountedDate DATE,
     PRODUCT_DATE_DiscountedDateFK INT,
     PRODUCT_PRODUCT_Discontinued BIT,
-    PRODUCT_DATE_DateTimeAdded INT
+    PRODUCT_datetime_added DATETIME DEFAULT GETUTCDATE()
 );
 GO
 
@@ -686,7 +690,7 @@ AS
 BEGIN
     UPDATE Product
     SET PRODUCT_PRODUCTPHOTO_ThumbnailPhoto = CASE
-                            WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString IS NOT NULL
+                            WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString IS NOT NULL
                             THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString, 1)
                             ELSE Product.PRODUCT_PRODUCTPHOTO_ThumbNailPhoto
                          END,
