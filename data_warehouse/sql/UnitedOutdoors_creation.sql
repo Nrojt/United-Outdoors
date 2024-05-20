@@ -143,8 +143,10 @@ CREATE TABLE Product (
     PRODUCT_PRODUCTDESCRIPTION_Desc NVARCHAR(MAX),
     PRODUCT_PRODUCTPRODUCTPHOTO_Primary BIT,
     PRODUCT_PRODUCTPHOTO_ThumbnailPhoto VARBINARY(MAX),
+    PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString NVARCHAR(MAX),
     PRODUCT_PRODUCTPHOTO_ThumbnailPhotoFileName NVARCHAR(50),
     PRODUCT_PRODUCTPHOTO_LargePhoto VARBINARY(MAX),
+    PRODUCT_PRODUCTPHOTO_LargePhotoHexString NVARCHAR(MAX),
     PRODUCT_PRODUCTPHOTO_LargePhotoFileName NVARCHAR(50),
     PRODUCT_PRODUCT_SellStartDate DATE,
     PRODUCT_DATE_SellStartDateFK INT,
@@ -731,6 +733,7 @@ ON Product
 AFTER INSERT, UPDATE
 AS
 BEGIN
+<<<<<<< HEAD
     UPDATE p
     SET PRODUCT_DATE_SellStartDateFK = CASE
         WHEN TRY_CONVERT(DATE, i.PRODUCT_PRODUCT_SellStartDate) IS NOT NULL
@@ -749,6 +752,21 @@ BEGIN
     END
     FROM Product p
     INNER JOIN inserted i ON i.PRODUCT_SK = p.PRODUCT_SK;
+=======
+    UPDATE Product
+    SET PRODUCT_PRODUCTPHOTO_ThumbnailPhoto = CASE
+                            WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString IS NOT NULL
+                            THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString, 1)
+                            ELSE Product.PRODUCT_PRODUCTPHOTO_ThumbNailPhoto
+                         END,
+        PRODUCT_PRODUCTPHOTO_LargePhoto = CASE
+                        WHEN inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString IS NOT NULL
+                        THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString, 1)
+                        ELSE Product.PRODUCT_PRODUCTPHOTO_LargePhoto
+                     END
+    FROM inserted
+    WHERE inserted.PRODUCT_SK = Product.PRODUCT_SK
+>>>>>>> f024c48 (Update UnitedOutdoors_creation.sql)
 END;
 GO
 
