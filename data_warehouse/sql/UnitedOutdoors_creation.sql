@@ -26,7 +26,7 @@ CREATE TABLE Employee (
     EMPLOYEE_EMPLOYEE_City NVARCHAR(100),
     EMPLOYEE_EMPLOYEE_State CHAR(2),
     EMPLOYEE_EMPLOYEE_Zip_Code CHAR(5),
-    EMPLOYEE_EMPLOYEE_Phone INT,
+    EMPLOYEE_EMPLOYEE_Phone NVARCHAR(20),
     EMPLOYEE_EMPLOYEE_Status CHAR(1),
     EMPLOYEE_EMPLOYEE_SS_Number INT,
     EMPLOYEE_EMPLOYEE_Salary INT,
@@ -45,6 +45,7 @@ CREATE TABLE Employee (
     EMPLOYEE_EMPLOYEES_HomePhone NVARCHAR(20),
     EMPLOYEE_EMPLOYEES_Extension INT,
     EMPLOYEE_EMPLOYEES_Photo VARBINARY(MAX),
+    EMPLOYEE_EMPLOYEES_PhotoHexString NVARCHAR(MAX),
     EMPLOYEE_EMPLOYEES_PhotoPath NVARCHAR(255),
     EMPLOYEE_EMPLOYEES_Notes VARCHAR(MAX),
     EMPLOYEE_datetime_added DATETIME DEFAULT GETUTCDATE()
@@ -526,7 +527,7 @@ CREATE TABLE TransactionHistoryArchive
 );
 GO
 
-CREATE TRIGGER ConvertHexToVarbinary
+CREATE TRIGGER ConvertHexToVarbinaryProduct
 ON Product
 AFTER INSERT, UPDATE
 AS
@@ -544,4 +545,20 @@ BEGIN
                      END
     FROM inserted
     WHERE inserted.ProductSK = Product.ProductSK
+END;
+GO
+
+CREATE TRIGGER ConvertHexToVarbinaryEmployee
+ON Employee
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE Employee
+    SET EMPLOYEE_EMPLOYEES_Photo = CASE
+                            WHEN inserted.EMPLOYEE_EMPLOYEES_PhotoHexString IS NOT NULL
+                            THEN CONVERT(VARBINARY(MAX), inserted.EMPLOYEE_EMPLOYEES_PhotoHexString, 1)
+                            ELSE Employee.EMPLOYEE_EMPLOYEES_Photo
+                         END
+    FROM inserted
+    WHERE inserted.EMPLOYEE_sk = Employee.EMPLOYEE_sk
 END;
