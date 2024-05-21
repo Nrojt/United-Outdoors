@@ -101,13 +101,13 @@ CREATE TABLE Product (
     PRODUCT_PRODUCT_ModelID INT,
     PRODUCT_PRODUCTMODELILLUSTRATION_IllustrationID INT,
     PRODUCT_PRODUCTPRODUCTPHOTO_PhotoID INT,
-    PRODUCT_PMPDC_DescriptionID VARCHAR(10),
-    PRODUCT_PMPDC_CultureID VARCHAR(5),
+    PRODUCT_PMPDC_DescriptionID INT,
+    PRODUCT_PMPDC_CultureID VARCHAR(10),
     PRODUCT_PRODUCT_SupplierID INT,
     PRODUCT_PRODUCT_Name VARCHAR(150),
-    PRODUCT_PRODUCT_Number VARCHAR(25),
-    PRODUCT_PRODUCT_MakeFlag BIT,
-    PRODUCT_PRODUCT_FinishedGoodsFlag BIT,
+    PRODUCT_PRODUCT_Number VARCHAR(50),
+    PRODUCT_PRODUCT_MakeFlag INT,
+    PRODUCT_PRODUCT_FinishedGoodsFlag INT,
     PRODUCT_PRODUCT_Color VARCHAR(25),
     PRODUCT_PRODUCT_SafetyStockLevel INT,
     PRODUCT_PRODUCT_ReorderLevel INT,
@@ -119,22 +119,22 @@ CREATE TABLE Product (
     PRODUCT_PRODUCT_UnitsOnOrder INT,
     PRODUCT_PRODUCT_Size VARCHAR(50),
     PRODUCT_PRODUCT_SizeUnitMeasureName VARCHAR(50),
-    PRODUCT_PRODUCT_WeightnitMeasureName VARCHAR(50),
+    PRODUCT_PRODUCT_WeightUnitMeasureName VARCHAR(50),
     PRODUCT_PRODUCT_Weight DECIMAL(8,2),
     PRODUCT_PRODUCT_DaysToManufacture INT,
     PRODUCT_PRODUCT_ProductLine CHAR(10),
-    PRODUCT_PRODUCT_Class CHAR(1),
-    PRODUCT_PRODUCT_Style CHAR(1),
+    PRODUCT_PRODUCT_Class VARCHAR(10),
+    PRODUCT_PRODUCT_Style VARCHAR(10),
     PRODUCT_PRODUCTSUBCATEGORY_SubCategory VARCHAR(50),
     PRODUCT_PRODUCTCATEGORY_Category VARCHAR(50),
-    PRODUCT_CATEGORY_Picture VARCHAR(150),
+    PRODUCT_CATEGORY_Picture VARBINARY(MAX),
     PRODUCT_PRODUCTMODEL_Name VARCHAR(100),
     PRODUCT_PRODUCTMODEL_CatalogDescription XML, -- this is empty so idk
     PRODUCT_PRODUCTMODEL_Instructions XML,
     PRODUCT_ILLUSTRATION_Diagram XML,
     PRODUCT_CULTURE_Name VARCHAR(50),
     PRODUCT_PRODUCTDESCRIPTION_Desc NVARCHAR(MAX),
-    PRODUCT_PRODUCTPRODUCTPHOTO_Primary BIT,
+    PRODUCT_PRODUCTPRODUCTPHOTO_Primary INT,
     PRODUCT_PRODUCTPHOTO_ThumbnailPhoto VARBINARY(MAX),
     PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString NVARCHAR(MAX),
     PRODUCT_PRODUCTPHOTO_ThumbnailPhotoFileName NVARCHAR(50),
@@ -147,7 +147,7 @@ CREATE TABLE Product (
     PRODUCT_DATE_SellEndDateFK INT,
     PRODUCT_PRODUCT_DiscountedDate DATE,
     PRODUCT_DATE_DiscountedDateFK INT,
-    PRODUCT_PRODUCT_Discontinued BIT,
+    PRODUCT_PRODUCT_Discontinued INT,
     PRODUCT_datetime_added DATETIME DEFAULT GETUTCDATE()
 );
 GO
@@ -159,7 +159,7 @@ CREATE TABLE Region(
     StateProvinceID INT,
     StateProvinceCode VARCHAR(10),
     CountryRegionCode CHAR(2),
-    IsOnlyStateProvinceFlag BIT,
+    IsOnlyStateProvinceFlag INT,
     Name VARCHAR(50),
     TerritoryID INT,
     rowguid UNIQUEIDENTIFIER NULL,
@@ -215,7 +215,7 @@ CREATE TABLE Person(
     PERSON_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     PERSON_PERSON_BusinessEntityID INT NOT NULL,
     PERSON_PERSON_PersonType CHAR(2),
-    PERSON_PERSON_NameStyle BIT,
+    PERSON_PERSON_NameStyle INT,
     PERSON_PERSON_Title VARCHAR(100),
     PERSON_PERSON_FirstName VARCHAR(100),
     PERSON_PERSON_MiddleName VARCHAR(100),
@@ -641,7 +641,8 @@ CREATE TABLE SalesPersonQuotaHistory(
 );
 GO
 
-CREATE TABLE TransactionHistory(
+-- I GIVE UP
+-- CREATE TABLE TransactionHistory(
     TRANSACTIONHISTORY_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     TRANSACTIONHISTORY_TRANSACTIONHISTORY_TransactionID INT,
     TRANSACTIONHISTORY_TRANSACTIONHISTORY_ProductID INT,
@@ -684,24 +685,24 @@ CREATE TABLE TransactionHistoryArchive
 GO
 
 CREATE TRIGGER ConvertHexToVarbinaryProduct
-ON Product
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    UPDATE Product
-    SET PRODUCT_PRODUCTPHOTO_ThumbnailPhoto = CASE
-                            WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString IS NOT NULL
-                            THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString, 1)
-                            ELSE Product.PRODUCT_PRODUCTPHOTO_ThumbNailPhoto
-                         END,
-        PRODUCT_PRODUCTPHOTO_LargePhoto = CASE
-                        WHEN inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString IS NOT NULL
-                        THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString, 1)
-                        ELSE Product.PRODUCT_PRODUCTPHOTO_LargePhoto
-                     END
-    FROM inserted
-    WHERE inserted.PRODUCT_SK = Product.PRODUCT_SK
-END;
+-- ON Product
+-- AFTER INSERT, UPDATE
+-- AS
+-- BEGIN
+--     UPDATE Product
+--     SET PRODUCT_PRODUCTPHOTO_ThumbnailPhoto = CASE
+--                             WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString IS NOT NULL
+--                             THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString, 1)
+--                             ELSE Product.PRODUCT_PRODUCTPHOTO_ThumbNailPhoto
+--                          END,
+--         PRODUCT_PRODUCTPHOTO_LargePhoto = CASE
+--                         WHEN inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString IS NOT NULL
+--                         THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString, 1)
+--                         ELSE Product.PRODUCT_PRODUCTPHOTO_LargePhoto
+--                      END
+--     FROM inserted
+--     WHERE inserted.PRODUCT_SK = Product.PRODUCT_SK
+-- END;
 GO
 
 CREATE TRIGGER ConvertHexToVarbinaryEmployee
@@ -718,7 +719,7 @@ BEGIN
     FROM inserted
     WHERE inserted.EMPLOYEE_sk = Employee.EMPLOYEE_sk
 END;
-GO
+-- GO
 
 CREATE TRIGGER ConvertSellStartDateSellEndDateDiscountedDateToFK
 ON Product
@@ -731,31 +732,16 @@ BEGIN
         THEN CONVERT(VARCHAR(8), TRY_CONVERT(DATE, i.PRODUCT_PRODUCT_SellStartDate), 112)
         ELSE '11111111'
     END,
-    -- PRODUCT_TIME_SellStartTimeFK = CASE
-    --     WHEN TRY_CONVERT(TIME, i.PRODUCT_PRODUCT_SellStartDate) IS NOT NULL
-    --     THEN LEFT(REPLACE(CONVERT(VARCHAR(8), TRY_CONVERT(TIME, i.PRODUCT_PRODUCT_SellStartDate), 108), ':', ''), 4)
-    --     ELSE '9999'
-    -- END,
     PRODUCT_DATE_SellEndDateFK = CASE
         WHEN TRY_CONVERT(DATE, i.PRODUCT_PRODUCT_SellEndDate) IS NOT NULL
         THEN CONVERT(VARCHAR(8), TRY_CONVERT(DATE, i.PRODUCT_PRODUCT_SellEndDate), 112)
         ELSE '11111111'
     END,
-    -- PRODUCT_TIME_SellEndTimeFK = CASE
-    --     WHEN TRY_CONVERT(TIME, i.PRODUCT_PRODUCT_SellEndDate) IS NOT NULL
-    --     THEN LEFT(REPLACE(CONVERT(VARCHAR(8), TRY_CONVERT(TIME, i.PRODUCT_PRODUCT_SellEndDate), 108), ':', ''), 4)
-    --     ELSE '9999'
-    -- END,
     PRODUCT_DATE_DiscountedDateFK = CASE
         WHEN TRY_CONVERT(DATE, i.PRODUCT_PRODUCT_DiscountedDate) IS NOT NULL
         THEN CONVERT(VARCHAR(8), TRY_CONVERT(DATE, i.PRODUCT_PRODUCT_DiscountedDate), 112)
         ELSE '11111111'
     END
-    -- PRODUCT_TIME_DiscountedTimeFK = CASE
-    --     WHEN TRY_CONVERT(TIME, i.PRODUCT_PRODUCT_DiscountedDate) IS NOT NULL
-    --     THEN LEFT(REPLACE(CONVERT(VARCHAR(8), TRY_CONVERT(TIME, i.PRODUCT_PRODUCT_DiscountedDate), 108), ':', ''), 4)
-    --     ELSE '9999'
-    -- END
     FROM Product p
     INNER JOIN inserted i ON i.PRODUCT_SK = p.PRODUCT_SK;
 END;
