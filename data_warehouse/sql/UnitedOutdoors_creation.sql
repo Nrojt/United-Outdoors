@@ -707,6 +707,6 @@ BEGIN
         ELSE '11111111'
     END
     FROM Product p
-    INNER JOIN inserted i ON i.PRODUCT_SK = p.PRODUCT_SK;
+    INNER JOIN inserted i ON i.PRODUCT_sk = p.PRODUCT_sk;
 END;
 GO
