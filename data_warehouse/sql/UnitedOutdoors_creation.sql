@@ -135,10 +135,10 @@ CREATE TABLE Product (
     PRODUCT_CULTURE_Name VARCHAR(50),
     PRODUCT_PRODUCTDESCRIPTION_Desc NVARCHAR(MAX),
     PRODUCT_PRODUCTPRODUCTPHOTO_Primary INT,
-    -- PRODUCT_PRODUCTPHOTO_ThumbnailPhoto VARBINARY(MAX), not used
+    PRODUCT_PRODUCTPHOTO_ThumbnailPhoto VARBINARY(MAX),
     PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString NVARCHAR(MAX),
     PRODUCT_PRODUCTPHOTO_ThumbnailPhotoFileName NVARCHAR(50),
-    -- PRODUCT_PRODUCTPHOTO_LargePhoto VARBINARY(MAX), not used
+    PRODUCT_PRODUCTPHOTO_LargePhoto VARBINARY(MAX),
     PRODUCT_PRODUCTPHOTO_LargePhotoHexString NVARCHAR(MAX),
     PRODUCT_PRODUCTPHOTO_LargePhotoFileName NVARCHAR(50),
     PRODUCT_PRODUCT_SellStartDate DATE,
@@ -646,29 +646,28 @@ CREATE TABLE TransactionHistoryArchive(
     TRANSACTIONHISTORYARCHIVE_TRANSACTIONHISTORYARCHIVE_ActualCost MONEY,
     TRANSACTIONHISTORYARCHIVE_datetime_added DATETIME DEFAULT GETUTCDATE()
 );
--- GO
+GO
 
--- I GIVE UP, creates infinite loop
--- CREATE TRIGGER ConvertHexToVarbinaryProduct
--- ON Product
--- AFTER INSERT, UPDATE
--- AS
--- BEGIN
---     UPDATE Product
---     SET PRODUCT_PRODUCTPHOTO_ThumbnailPhoto = CASE
---                             WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString IS NOT NULL
---                             THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString, 1)
---                             ELSE Product.PRODUCT_PRODUCTPHOTO_ThumbNailPhoto
---                          END,
---         PRODUCT_PRODUCTPHOTO_LargePhoto = CASE
---                         WHEN inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString IS NOT NULL
---                         THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString, 1)
---                         ELSE Product.PRODUCT_PRODUCTPHOTO_LargePhoto
---                      END
---     FROM inserted
---     WHERE inserted.PRODUCT_sk = Product.PRODUCT_sk
--- END;
--- GO
+CREATE TRIGGER ConvertHexToVarbinaryProduct
+ON Product
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE Product
+    SET PRODUCT_PRODUCTPHOTO_ThumbnailPhoto = CASE
+                            WHEN inserted.PRODUCT_PRODUCTPHOTO_ThumbnailPhotoHexString IS NOT NULL
+                            THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_ThumbNailPhotoHexString, 1)
+                            ELSE Product.PRODUCT_PRODUCTPHOTO_ThumbNailPhoto
+                         END,
+        PRODUCT_PRODUCTPHOTO_LargePhoto = CASE
+                        WHEN inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString IS NOT NULL
+                        THEN CONVERT(VARBINARY(MAX), inserted.PRODUCT_PRODUCTPHOTO_LargePhotoHexString, 1)
+                        ELSE Product.PRODUCT_PRODUCTPHOTO_LargePhoto
+                     END
+    FROM inserted
+    WHERE inserted.PRODUCT_sk = Product.PRODUCT_sk
+END;
+GO
 
 CREATE TRIGGER ConvertHexToVarbinaryEmployee
 ON Employee
