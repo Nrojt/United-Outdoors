@@ -152,20 +152,6 @@ CREATE TABLE Product (
 );
 GO
 
--- Are we even using this?
--- CREATE TABLE Region(
---     RegionSK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
---     RegionID INT,
---     RegionName VARCHAR(10),
---     StateProvinceID INT,
---     StateProvinceCode VARCHAR(10),
---     CountryRegionCode CHAR(2),
---     IsOnlyStateProvinceFlag INT,
---     Name VARCHAR(50),
---     TerritoryID INT,
---     rowguid UNIQUEIDENTIFIER NULL,
---     ModifiedDate DATE
--- );
 
 CREATE TABLE Customer(
     CUSTOMER_sk INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
