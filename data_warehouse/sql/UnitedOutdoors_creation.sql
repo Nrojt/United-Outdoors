@@ -718,7 +718,7 @@ BEGIN
                             WHEN inserted.EMPLOYEE_EMPLOYEES_PhotoHexString IS NOT NULL
                             THEN CONVERT(VARBINARY(MAX), inserted.EMPLOYEE_EMPLOYEES_PhotoHexString, 1)
                             ELSE Employee.EMPLOYEE_EMPLOYEES_Photo
-                         END,
+                         END
     FROM inserted
     WHERE inserted.EMPLOYEE_sk = Employee.EMPLOYEE_sk
 END;
