@@ -9,12 +9,20 @@ DB = {
 }
 
 
-def drop_sk_datetime_added_columns(dataframe):
-    # dropping all columns with 'rowguid' in their name
+def drop_sk_datetime_added_columns(dataframe, drop_null_columns=True, fill_na=True):
+    # dropping all columns with '_sk' and 'datetime_added' in their name
     columns_to_drop_mr = dataframe.filter(like='_sk').columns.append(dataframe.filter(like='_datetime_added').columns)
 
     # dropping the columns
     dataframe.drop(columns=columns_to_drop_mr, inplace=True)
+
+    # dropping all columns with only null values
+    if drop_null_columns:
+        dataframe.dropna(axis=1, how='all', inplace=True)
+
+    # filling all null values with -1
+    if fill_na:
+        dataframe.fillna(-1, inplace=True)
 
 
 # Define a function for the training loop
