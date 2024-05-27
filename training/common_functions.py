@@ -1,4 +1,6 @@
 from urllib import parse
+
+import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
 import pandas as pd
@@ -64,3 +66,18 @@ def read_data_return_df(sql_query, engine):
     finally:
         connection.close()
     return None
+
+
+def plot_predictions(y_true, y_pred, title):
+    plt.scatter(y_true, y_pred)
+    plt.xlabel('True Values')
+    plt.ylabel('Predictions')
+    plt.title(title)
+    plt.show()
+
+
+def plot_feature_importance(columns, importance):
+    plt.barh(columns, importance)
+    plt.xlabel('Importance')
+    plt.ylabel('Feature')
+    plt.show()
