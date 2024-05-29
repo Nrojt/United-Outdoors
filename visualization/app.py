@@ -45,12 +45,23 @@ def download_dir(directory):
 @app.route('/training/<path:type_of_training>', methods=['GET', 'POST'])
 def training_prediction(type_of_training):
     training_folders = next(os.walk('./static/training/' + type_of_training))[1]  # getting all the folders in the
+
     # training directory
     training_info = None
+    unique_cluster_dict = None
     if request.method == 'POST':
         training_info = request.form.get('training_info')  # getting the selected training info
+        if type_of_training == 'cluster':
+            # getting all the image files in all  the unique_clusters folders
+            training_folders = [folder for folder in training_folders]
+            unique_cluster_dict = {}
+            for folder in training_folders:
+                unique_cluster_dict[folder] = os.listdir('./static/training/' + type_of_training + '/' + folder +
+                                                         '/unique_clusters')
+            print(unique_cluster_dict)
+
     return render_template('training.html', folders=training_folders, selected_training_info=training_info,
-                           type_of_training=type_of_training)
+                           type_of_training=type_of_training, unique_cluster_dict=unique_cluster_dict)
 
 
 if __name__ == '__main__':

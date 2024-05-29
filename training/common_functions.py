@@ -201,21 +201,24 @@ def plot_unique_clusters(df, cluster_assignments, colors, dir_name):
     # Create directory if it doesn't exist
     os.makedirs(dir_path, exist_ok=True)
 
-    # Create a figure and a set of subplots
-    fig, axs = plt.subplots(len(unique_clusters), figsize=(10, 5 * len(unique_clusters)))
-
     # Iterate over the unique cluster labels
     for i, cluster in enumerate(unique_clusters):
         # Get the data points that belong to this cluster
         cluster_data = df[cluster_assignments == cluster]
 
+        # Create a new figure for this cluster
+        fig, ax = plt.subplots(figsize=(10, 5))
+
         # Create a scatter plot for this cluster using a unique color
-        axs[i].scatter(cluster_data[:, 0], cluster_data[:, 1], color=colors[i % len(colors)])
-        axs[i].set_title(f'Cluster {cluster}')
-        axs[i].set_xlabel('PCA X')
-        axs[i].set_ylabel('PCA Y')
+        ax.scatter(cluster_data[:, 0], cluster_data[:, 1], color=colors[i % len(colors)])
+        ax.set_title(f'Cluster {cluster}')
+        ax.set_xlabel('PCA X')
+        ax.set_ylabel('PCA Y')
+
+        # Save the plot for this cluster
         plt.savefig(f'{dir_path}/cluster_{cluster}.png')
 
-    # Display the plots
-    plt.tight_layout()
-    plt.show()
+        plt.show()
+
+        # Close the figure to free up memory
+        plt.close(fig)
