@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <title>Training</title>
+</head>
+<body>
+    <h1>Training Information</h1>
+    <div>
+        <a href="/download_dir/training">Download training files</a>
+    </div>
+    <form action="{{'/training/' + type_of_training  }}" method="post">
+        <label>
+            <select id="training_info_selector" name="training_info">
+                <option {%  if selected_training_info == None %}selected{% endif %} disabled>Kies een optie</option>
+                {% for folder in folders %}
+                    <option value="{{ folder }}" {% if folder == selected_training_info %}selected{% endif %}>{{ folder }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <script>
+            document.getElementById("training_info_selector").addEventListener("change", function() {
+                this.form.submit();
+            });
+        </script>
+    </form>
+    {% if selected_training_info %}
+        <h2>{{selected_training_info}}</h2>
+        {% if type_of_training == 'regression' %}
+            {% include 'training/regression.html' with context %}
+        {% endif %}
+        {% if type_of_training == 'cluster' %}
+            {% include 'training/clustering.html' with context %}
+        {% endif %}
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .max-size {
+            max-width: 1000px;
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+<h3>Linear Regression</h3>
+<h4>Scatter Plot</h4>
+<img class="max-size" src="{{'/static/training/regression/'+ selected_training_info +'/lr_scatter.png'}}" alt="{{ "Scatter Plot voor de voorspellingen van " + selected_training_info }}">
+<p>Dit laat de scatter plot zien voor de voorspellingen van {{ selected_training_info }}. Het toont de relatie tussen de werkelijke en voorspelde waarden.</p>
+<h4>Feature Importance</h4>
+<img class="max-size" src="{{ '/static/training/regression/' + selected_training_info + '/lr_feature_importance.png'}}" alt=alt="{{ "Feature Importance voor de voorspellingen van " + selected_training_info }}>
+<p>Dit toont de feature importance voor de voorspellingen van {{ selected_training_info }}. Het geeft aan welke kenmerken het meest bijdragen aan de voorspellingen.</p>
+
+<h3>Decision Tree</h3>
+<h4>Decision Tree</h4>
+<img class="max-size" src="{{'/static/training/regression/'+ selected_training_info +'/dt.png'}}" alt="{{ "De Decision Tree voor de voorspellingen van " + selected_training_info }}">
+<p>Dit laat de Decision Tree zien voor de voorspellingen van {{ selected_training_info }}. .</p>
+<h4>Feature Importance</h4>
+<img class="max-size" src="{{ '/static/training/regression/' + selected_training_info + '/dt_feature_importance.png'}}" alt=alt="{{ "Feature Importance voor de voorspellingen van " + selected_training_info }}>
+<p>Dit toont de feature importance voor de voorspellingen van {{ selected_training_info }}. Het geeft aan welke kenmerken het meest bijdragen aan de voorspellingen.</p>
+
+<h3>Random Forest</h3>
+<h4>Scatter Plot</h4>
+<img class="max-size" src="{{'/static/training/regression/'+ selected_training_info +'/rf_scatter.png'}}" alt="{{ "Scatter Plot voor de voorspellingen van " + selected_training_info }}">
+<p>Dit laat de scatter plot zien voor de voorspellingen van {{ selected_training_info }}. Het toont de relatie tussen de werkelijke en voorspelde waarden.</p>
+<h4>Feature Importance</h4>
+<img class="max-size" src="{{ '/static/training/regression/' + selected_training_info + '/rf_feature_importance.png'}}" alt=alt="{{ "Feature Importance voor de voorspellingen van " + selected_training_info }}>
+<p>Dit toont de feature importance voor de voorspellingen van {{ selected_training_info }}. Het geeft aan welke kenmerken het meest bijdragen aan de voorspellingen.</p>
+
+<h3>Gradient Boosting</h3>
+<h4>Scatter Plot</h4>
+<img class="max-size" src="{{'/static/training/regression/'+ selected_training_info +'/gb_scatter.png'}}" alt="{{ "Scatter Plot voor de voorspellingen van " + selected_training_info }}">
+<p>Dit laat de scatter plot zien voor de voorspellingen van {{ selected_training_info }}. Het toont de relatie tussen de werkelijke en voorspelde waarden.</p>
+<h4>Feature Importance</h4>
+<img class="max-size" src="{{ '/static/training/regression/' + selected_training_info + '/gb_feature_importance.png'}}" alt=alt="{{ "Feature Importance voor de voorspellingen van " + selected_training_info }}>
+<p>Dit toont de feature importance voor de voorspellingen van {{ selected_training_info }}. Het geeft aan welke kenmerken het meest bijdragen aan de voorspellingen.</p>
+
+<h3>Pytorch</h3>
+<h4>Scatter Plot</h4>
+<img class="max-size" src="{{'/static/training/regression/'+ selected_training_info +'/torch_scatter.png'}}" alt="{{ "Scatter Plot voor de voorspellingen van " + selected_training_info }}">
+<p>Dit laat de scatter plot zien voor de voorspellingen van {{ selected_training_info }}. Het toont de relatie tussen de werkelijke en voorspelde waarden.</p>
+
+</body>
+</html>
