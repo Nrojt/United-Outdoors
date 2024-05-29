@@ -25,8 +25,8 @@
     </form>
     {% if selected_training_info %}
         <h2>{{selected_training_info}}</h2>
-        {% if type_of_training == 'regression' %}
-            {% include 'training/regression.html' with context %}
+        {% if type_of_training == 'prediction' %}
+            {% include 'training/prediction.html' with context %}
         {% endif %}
         {% if type_of_training == 'cluster' %}
             {% include 'training/clustering.html' with context %}

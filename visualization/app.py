@@ -43,7 +43,7 @@ def download_dir(directory):
 
 # route for training page, which visualizes the training process
 @app.route('/training/<path:type_of_training>', methods=['GET', 'POST'])
-def training_regression(type_of_training):
+def training_prediction(type_of_training):
     training_folders = next(os.walk('./static/training/' + type_of_training))[1]  # getting all the folders in the
     # training directory
     training_info = None
