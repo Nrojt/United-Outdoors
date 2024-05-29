@@ -1,14 +1,18 @@
 from urllib import parse
 
 import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
 import pandas as pd
+import os
 
 DB = {
     'servername': '(local)\\SQLEXPRESS',
     'united_outdoors_database': 'UnitedOutdoors',
 }
+
+parent_dir = os.path.dirname(os.path.dirname(os.getcwd()))
 
 
 def drop_sk_datetime_added_columns(dataframe, drop_null_columns=True, fill_na=True):
@@ -68,16 +72,51 @@ def read_data_return_df(sql_query, engine):
     return None
 
 
-def plot_predictions(y_true, y_pred, title):
+def plot_predictions(y_true, y_pred, title, dict_name, image_short_name):
+    image_path = os.path.join(parent_dir, 'visualization', 'static', 'training', 'regression', dict_name,
+                              image_short_name + '_scatter.png')
+
+    print(image_path)
+
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
     plt.scatter(y_true, y_pred)
     plt.xlabel('True Values')
     plt.ylabel('Predictions')
     plt.title(title)
+    plt.savefig(image_path)
     plt.show()
 
 
-def plot_feature_importance(columns, importance):
+def plot_feature_importance(columns, importance, title, dir_name, image_short_name):
+    image_path = os.path.join(parent_dir, 'visualization', 'static', 'training', 'regression', dir_name,
+                              image_short_name + '_feature_importance.png')
+
+    print(image_path)
+
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
     plt.barh(columns, importance)
     plt.xlabel('Importance')
     plt.ylabel('Feature')
+    plt.title(title)
+    plt.savefig(image_path)
+    plt.show()
+
+
+def plot_decision_tree(model, columns, title, dir_name, image_short_name):
+    image_path = os.path.join(parent_dir, 'visualization', 'static', 'training', 'regression', dir_name,
+                              image_short_name + '.png')
+
+    print(image_path)
+
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
+    plt.figure(figsize=(50, 50))
+    plt.title(title)
+    plot_tree(model, feature_names=columns, filled=True)
+    plt.savefig(image_path)
     plt.show()
