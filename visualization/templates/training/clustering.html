@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .max-size {
+            max-width: 1000px;
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+<h3>Inter, intra and silhouette</h3>
+<h4>Inter cluster distance</h4>
+<img class="max-size" src="{{'/static/training/cluster/'+ selected_training_info +'/inter.png'}}" alt="{{ "Inter cluster distance for " + selected_training_info }}">
+<p>This shows the inter cluster distance for {{ selected_training_info }}. It shows the distance between the clusters.</p>
+<h4>Intra cluster distance</h4>
+<img class="max-size" src="{{ '/static/training/cluster/' + selected_training_info + '/intra.png'}}" alt=alt="{{ "Intra cluster distance for " + selected_training_info }}>
+<p>This shows the intra cluster distance for {{ selected_training_info }}. It shows the distance within the clusters.</p>
+<h4>Silhouette</h4>
+<img class="max-size" src="{{ '/static/training/cluster/' + selected_training_info + '/silhouette.png'}}" alt=alt="{{ "Silhouette for " + selected_training_info }}>
+<p>This shows the silhouette for {{ selected_training_info }}. It shows how well the clusters are separated.</p>
+
+<h3>Cluster Scatter</h3>
+<img class="max-size" src="{{'/static/training/cluster/'+ selected_training_info +'/scatter.png'}}" alt="{{ "Cluster scatter for " + selected_training_info }}">
+<p>This shows the cluster scatter for {{ selected_training_info }}. It shows the clusters in a scatter plot.</p>
+
+<h3>Individual clusters</h3>
+{% for cluster in unique_cluster_dict[selected_training_info] %}
+    <h4>Cluster {{ cluster }}</h4>
+    <img class="max-size" src="{{'/static/training/cluster/'+ selected_training_info +'/unique_clusters/'+ cluster}}" alt="{{ "Cluster " + cluster + " for " + selected_training_info }}">
+    <p>This shows cluster {{ cluster }} for {{ selected_training_info }}. It shows the distribution of the data points in the cluster.</p>
+{% endfor %}
+</body>
+</html>
