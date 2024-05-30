@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "training"
+version = "0.1.0"
+description = ""
+authors = ["Tjorn <74906283+Nrojt@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+torch = { version = "^2.3.0", source = "pytorch" }
+scikit-learn = "^1.4.2"
+pandas = "^2.2.2"
+matplotlib = "^3.9.0"
+seaborn = "^0.13.2"
+notebook = "^7.2.0"
+jupyter = "^1.0.0"
+nbdime = "^4.0.1"
+sqlalchemy = "^2.0.30"
+pyodbc = "^5.1.0"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu121"
+priority = "supplemental"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
